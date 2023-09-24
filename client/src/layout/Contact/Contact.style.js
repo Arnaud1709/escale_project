@@ -15,25 +15,25 @@ const contactStyles = {
   },
 
   gridStyle: {
-    marginTop: "10px",
+    marginTop: "1vh",
   },
 
   gridStyleFirstName: {
     marginTop: "10px",
-    paddingRight: "5px",
+    paddingRight: "0.5vh",
   },
 
   gridStyleLastName: {
     marginTop: "10px",
-    paddingLeft: "5px",
+    paddingLeft: "0.5vh",
   },
 
   gridStyleNameSmallScreen: {
-    marginTop: "10px",
+    marginTop: "1vh",
   },
 
   submitButton: {
-    height: "50px",
+    height: "5vh",
     textAlign: "center",
     fontWeight: "600",
     backgroundColor: "#79b7f0",
@@ -45,10 +45,11 @@ const contactStyles = {
     justifyContent: "center",
     alignItems: "center",
     boxShadow: "0px 2px 1px -1px grey",
+    fontSize: "0.85rem"
   },
 
   submitButtonHover: {
-    height: "50px",
+    height: "5vh",
     textAlign: "center",
     fontWeight: "600",
     backgroundColor: "#cbe3f9",
@@ -59,6 +60,7 @@ const contactStyles = {
     justifyContent: "center",
     alignItems: "center",
     boxShadow: "0px 2px 1px -1px grey",
+    fontSize: "0.85rem"
   },
 };
 export default contactStyles;

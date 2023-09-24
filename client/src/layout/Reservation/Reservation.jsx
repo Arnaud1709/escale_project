@@ -8,23 +8,29 @@ import {
   useMediaQuery,
   Grid,
   TextField,
-  Typography,
   Container,
   FormControl,
   FormLabel,
   RadioGroup,
   FormControlLabel,
   Radio,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import Calendar from "../../components/Calendar/Calendar";
 
-const Reservation = ({ currentLanguage }) => {
-  const { t, i18n } = useTranslation();
+const Reservation = () => {
+  const { t } = useTranslation();
   const {
     cardStyle,
     submitButton,
     submitButtonHover,
+    reservationPrice,
+    selectedNumber,
+    totalValue,
     infoField,
+    userCondtion,
+    userConditionDiv,
     gridStyle,
     durationStyle,
     stayDurationStyle,
@@ -64,6 +70,71 @@ const Reservation = ({ currentLanguage }) => {
     ? dataArrayLineSmallScreen
     : dataArrayLine;
 
+  const [selectedNumberOfPersons, setSelectedNumberOfPersons] = useState(1);
+  const [dateRange, setDateRange] = useState(null);
+  const [totalAmount, setTotalAmount] = useState(0);
+
+  const handleDateRangeChange = (dates) => {
+    if (dates && dates[0] && dates[1]) {
+      setDateRange(dates);
+      recalculateTotalAmount(selectedNumberOfPersons, dates);
+    }
+  };
+
+  const handleNumberOfPersonsChange = (event) => {
+    const newNumberOfPersons = event.target.value;
+    setSelectedNumberOfPersons(newNumberOfPersons);
+    recalculateTotalAmount(newNumberOfPersons, dateRange);
+  };
+
+  const itemArrays = [
+    [
+      { name: t("noAnimal") },
+      { name: t("maxPersons") },
+      { name: t("bathroomLinen") },
+      { name: t("bedroomLinen") },
+      { name: t("babyBed") },
+      { name: t("twoBed") },
+    ],
+    [
+      { name: t("fridge") },
+      { name: t("cofeeMachine") },
+      { name: t("kettle") },
+      { name: t("microwave") },
+      { name: t("wifi") },
+      { name: t("barbecue") },
+    ],
+  ];
+
+  const recalculateTotalAmount = (numberOfPersons, selectedDateRange) => {
+    if (selectedDateRange && selectedDateRange[0] && selectedDateRange[1]) {
+      const startDate = selectedDateRange[0];
+      const endDate = selectedDateRange[1];
+      const numberOfDays = endDate.diff(startDate, "days");
+
+      let amount = 0;
+
+      switch (numberOfPersons) {
+        case 1:
+          amount = numberOfDays * 60;
+          break;
+        case 2:
+          amount = numberOfDays * 60;
+          break;
+        case 3:
+          amount = numberOfDays * 75;
+          break;
+        case 4:
+          amount = numberOfDays * 90;
+          break;
+        default:
+          break;
+      }
+
+      setTotalAmount(amount);
+    }
+  };
+
   const handleMouseEnter = () => {
     setSubmitButtonStyle(submitButtonHover);
   };
@@ -79,25 +150,8 @@ const Reservation = ({ currentLanguage }) => {
   const handleMouseLeave = () => {
     setHoveredItemIndex1(-1);
     setHoveredItemIndex2(-1);
-    setSubmitButtonStyle(submitButton)
+    setSubmitButtonStyle(submitButton);
   };
-
-  const itemArray = [
-    { name: t("noAnimal") },
-    { name: t("maxPersons") },
-    { name: t("bathroomLinen") },
-    { name: t("bedroomLinen") },
-    { name: t("babyBed") },
-    { name: t("twoBed") },
-  ];
-  const itemArray2 = [
-    { name: t("fridge") },
-    { name: t("cofeeMachine") },
-    { name: t("kettle") },
-    { name: t("microwave") },
-    { name: t("wifi") },
-    { name: t("barbecue") },
-  ];
 
   return (
     <Container style={containerStyle}>
@@ -145,31 +199,53 @@ const Reservation = ({ currentLanguage }) => {
                   </Grid>
                   <Grid xs={12} item style={gridStyle}>
                     <TextField
-                      label={t("message")}
-                      placeholder={t("enterMessage")}
+                      label={t("moreInfo")}
+                      placeholder={t("enterInfo")}
                       variant="outlined"
                       fullWidth
-                      required
                     />
                   </Grid>
                 </Grid>
+                <div style={userCondtion}>
+                  <div style={userConditionDiv}>
+                    <p>{t("account")}</p>
+                    <p>{t("noAnimal")}</p>
+                    <p>{t("cancelReservation")}</p>
+                  </div>
+                  <div style={userConditionDiv}>
+                    <p>{t("arrived")}</p>
+                    <p>{t("departure")}</p>
+                    <p>{t("breakfast")}</p>
+                  </div>
+                </div>
               </div>
             </div>
             <div style={halfTopStyle}>
               <div style={stayDurationStyle}>
                 <p style={durationStyle}>{t("stayDuration")}</p>
-                <Calendar/>
+                <Calendar onDateRangeChange={handleDateRangeChange} />
               </div>
-              <div>
-                <TextField
-                style= {gridStyle}
-                  label={t("numberPerson")}
-                  placeholder={t("enterMessage")}
+              <div style={reservationPrice}>
+                <p>{t("numberPerson")}</p>
+                <Select
+                  value={selectedNumberOfPersons}
+                  onChange={handleNumberOfPersonsChange}
                   variant="outlined"
-                  fullWidth
                   required
-                />
+                  style= {selectedNumber}
+                >
+                  <MenuItem value={1}>1</MenuItem>
+                  <MenuItem value={2}>2</MenuItem>
+                  <MenuItem value={3}>3</MenuItem>
+                  <MenuItem value={4}>4</MenuItem>
+                </Select>
               </div>
+                <div style={totalValue}>
+                  <p>{t("totalAmount")}</p>
+                  {totalAmount > 0 && (
+                    <p>{totalAmount} €</p>
+                  )}
+                </div>
               <div>
                 <FormControl style={infoField}>
                   <FormLabel id="demo-radio-buttons-group-label">
@@ -181,7 +257,7 @@ const Reservation = ({ currentLanguage }) => {
                     name="radio-buttons-group"
                     required
                   >
-                    <FormControlLabel
+                  { /* <FormControlLabel
                       value="paypal"
                       control={<Radio />}
                       label={t("paypal")}
@@ -190,22 +266,13 @@ const Reservation = ({ currentLanguage }) => {
                       value="onPlace"
                       control={<Radio />}
                       label={t("onPlace")}
-                    />
+                    /> */}
+                    <p>{t("onlyOnPlace")}</p>
                   </RadioGroup>
                 </FormControl>
               </div>
-
             </div>
           </div>
-          <div>
-                <TextField
-                style={infoField}
-                  label={t("moreInfo")}
-                  placeholder={t("enterMessage")}
-                  variant="outlined"
-                  fullWidth
-                />
-              </div>
           <Button
             type="submit"
             fullWidth
@@ -214,39 +281,31 @@ const Reservation = ({ currentLanguage }) => {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            {t("submit")}
+            {t("paid")}
           </Button>
         </CardContent>
       </Card>
       <div style={dataArrayStyle}>
-        <div style={dataArrayLineStyle}>
-          {itemArray.map((item, index) => (
-            <div
-              style={
-                index === hoveredItemIndex1 ? dataArrayItemHover : dataArrayItem
-              }
-              onMouseEnter={() => handleMouseEnter1(index)}
-              onMouseLeave={handleMouseLeave}
-              key={item.name}
-            >
-              {item.name}
-            </div>
-          ))}
-        </div>
-        <div style={dataArrayLineStyle}>
-          {itemArray2.map((item, index) => (
-            <div
-              style={
-                index === hoveredItemIndex2 ? dataArrayItemHover : dataArrayItem
-              }
-              onMouseEnter={() => handleMouseEnter2(index)}
-              onMouseLeave={handleMouseLeave}
-              key={item.name}
-            >
-              {item.name}
-            </div>
-          ))}
-        </div>
+        {itemArrays.map((itemArray, arrayIndex) => (
+          <div style={dataArrayLineStyle} key={arrayIndex}>
+            {itemArray.map((item, index) => (
+              <div
+                style={
+                  index === (arrayIndex === 0 ? hoveredItemIndex1 : hoveredItemIndex2)
+                    ? dataArrayItemHover
+                    : dataArrayItem
+                }
+                onMouseEnter={() =>
+                  arrayIndex === 0 ? handleMouseEnter1(index) : handleMouseEnter2(index)
+                }
+                onMouseLeave={handleMouseLeave}
+                key={item.name}
+              >
+                {item.name}
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
     </Container>
   );

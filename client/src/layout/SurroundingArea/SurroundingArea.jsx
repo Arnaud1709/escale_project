@@ -16,9 +16,6 @@ const SurroundingArea = () => {
   const [hoveredItemIndex1, setHoveredItemIndex1] = useState(-1);
   const [hoveredItemIndex2, setHoveredItemIndex2] = useState(-1);
   const { t, i18n } = useTranslation();
-  const homeDescribe = t("homeDescribe");
-
-  const [selectedGeoJSON, setSelectedGeoJSON] = useState(home);
 
   const handleMouseEnter1 = (index) => {
     setHoveredItemIndex1(index);
@@ -31,6 +28,28 @@ const SurroundingArea = () => {
   const handleMouseLeave = () => {
     setHoveredItemIndex1(-1);
     setHoveredItemIndex2(-1);
+  };
+
+  const [selectedGeoJSON, setSelectedGeoJSON] = useState(home);
+
+  const handleButtonClick = (index) => {
+    if (index === 0) {
+      setSelectedGeoJSON(jussey);
+    } else if (index === 1) {
+      setSelectedGeoJSON(charbonette);
+    } else if (index === 2) {
+      setSelectedGeoJSON(bougeyCastle);
+    }
+  };
+
+  const handleButtonClick2 = (index) => {
+    if (index === 0) {
+      setSelectedGeoJSON(vesoul);
+    } else if (index === 1) {
+      setSelectedGeoJSON(bourbonne);
+    } else if (index === 2) {
+      setSelectedGeoJSON(deerDomain);
+    }
   };
 
   const itemArray = [
@@ -100,9 +119,9 @@ const SurroundingArea = () => {
               style={
                 index === hoveredItemIndex1 ? dataArrayItemHover : dataArrayItem
               }
-              onClick={() => setSelectedGeoJSON(item.data)}
               onMouseEnter={() => handleMouseEnter1(index)}
               onMouseLeave={handleMouseLeave}
+              onClick={() => handleButtonClick(index)}
               key={item.name}
             >
               {item.name}
@@ -115,10 +134,10 @@ const SurroundingArea = () => {
               style={
                 index === hoveredItemIndex2 ? dataArrayItemHover : dataArrayItem
               }
-              onClick={() => setSelectedGeoJSON(item.data)}
               component="button"
               onMouseEnter={() => handleMouseEnter2(index)}
               onMouseLeave={handleMouseLeave}
+              onClick={() => handleButtonClick2(index)}
               key={item.name}
             >
               {item.name}

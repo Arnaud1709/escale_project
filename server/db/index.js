@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const connectionString = 'mongodb://mongo:27017/escale';
+const connectionString = 'mongodb://mongo:27017/escaleUser';
 
 mongoose.connect(connectionString, { useNewUrlParser: true }).catch((e) => {
   console.error('Connection error', e.message);

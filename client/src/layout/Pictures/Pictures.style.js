@@ -12,12 +12,13 @@ const picturesStyles = {
       },
       
     photoGallery: {
-        width: "175px",
+        height: "10vh",
+        width: "150px",
         margin: "2px"
     },
 
     imageList: {
-        height: "160px",
+        height: "15vh",
         width: "84vw",
         display: "flex",
         flexDirection: "row",

@@ -50,7 +50,7 @@ const homeStyles = {
   description: {
     flex: "1",
     margin: "auto",
-    fontSize: "1.2vw",
+    fontSize: "1rem",
     textAlign: "justify",
     textJustify: "inter-word",
     fontWeight: "500",
@@ -76,7 +76,7 @@ const homeStyles = {
   },
 
   dataArrayItem: {
-    height: "50px",
+    height: "5vh",
     width: "170px",
     textAlign: "center",
     fontWeight: "600",
@@ -88,10 +88,11 @@ const homeStyles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    fontSize: "0.9rem"
   },
 
   dataArrayItemHover: {
-    height: "50px",
+    height: "5vh",
     width: "170px",
     textAlign: "center",
     fontWeight: "600",
@@ -146,7 +147,7 @@ const homeStyles = {
   descriptionSmallScreen: {
     flex: "1",
     margin: "auto",
-    fontSize: "12px",
+    fontSize: "1rem",
     fontWeight: "550",
     textAlign: "justify",
     textJustify: "inter-word",

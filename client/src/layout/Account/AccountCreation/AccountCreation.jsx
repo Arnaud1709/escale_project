@@ -5,9 +5,9 @@ import accountCreationStyle from "./AccountCreation.style";
 
 const AccountCreation = ({ handleSubmit }) => {
   const [formData, setFormData] = useState({
-    username: "",
+    name: "",
+    pwd: "",
     email: "",
-    password: "",
   });
 
   const {root} = accountCreationStyle;
@@ -32,10 +32,10 @@ const AccountCreation = ({ handleSubmit }) => {
           <TextField
             fullWidth
             label="Nom d'utilisateur"
-            name="username"
+            name="name"
             variant="outlined"
             margin="normal"
-            value={formData.username}
+            value={formData.name}
             onChange={handleChange}
             required
           />
@@ -53,11 +53,11 @@ const AccountCreation = ({ handleSubmit }) => {
           <TextField
             fullWidth
             label="Mot de passe"
-            name="password"
+            name="pwd"
             type="password"
             variant="outlined"
             margin="normal"
-            value={formData.password}
+            value={formData.pwd}
             onChange={handleChange}
             required
           />

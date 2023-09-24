@@ -7,7 +7,7 @@ const footerStyles = {
     position: "absolute",
     bottom: "0",
     width: "100%",
-    paddingTop:"0"
+    paddingTop: "1rem",  
   },
 
   rootSmallScreen: {
@@ -19,7 +19,7 @@ const footerStyles = {
   },
 
   footerHeader: {
-    lineHeight: "0px",
+    lineHeight: "1.5", 
   },
 
   footerSection: {
@@ -35,7 +35,7 @@ const footerStyles = {
     flexWrap: "wrap",
     width: "100%",
     textAlign: "left",
-    marginBottom: "2rem",
+    marginBottom: "1rem",
   },
 
   footerLinksDiv: {
@@ -58,8 +58,8 @@ const footerStyles = {
   },
 
   titleFooter: {
-    fontSize: "12px",
-    lineHeight: "15px",
+    fontSize: "0.875rem", 
+    lineHeight: "1.25",
     margin: "0.5rem 0",
     cursor: "pointer",
   },
@@ -72,16 +72,16 @@ const footerStyles = {
   },
 
   footerBelowLinks: {
-    fontSize: "14px",
-    lineHeight: "16px",
-    marginleft: "2rem",
+    fontSize: "1rem",       
+    lineHeight: "1.125",    
+    marginLeft: "1rem",
     color: "white",
     fontWeight: "600",
   },
 
   footerCopyright: {
-    fontSize: "14px",
-    lineHeight: "16px",
+    fontSize: "1rem",    
+    lineHeight: "1.125", 
     color: "white",
     fontWeight: "600",
   },

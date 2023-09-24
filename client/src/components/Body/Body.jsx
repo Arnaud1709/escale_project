@@ -16,8 +16,9 @@ import bodyStyles from "./Body.style";
 import { withTranslation } from "react-i18next";
 import AccountCreation from "../../layout/Account/AccountCreation";
 import axios from "axios";
+import Login from "../../layout/Account/Login/Login";
 
-const Body = () => {
+const Body = ( {handleLogin} ) => {
   const { root, rootSmallScreen } = bodyStyles;
   const isSmallScreen = useMediaQuery("(max-width: 900px)");
   const rootStyle = isSmallScreen ? rootSmallScreen : root;
@@ -27,7 +28,7 @@ const Body = () => {
       console.log("Données du formulaire soumises depuis MainPage :", formData);
 
       const response = await axios.post(
-        "http://localhost:5000/escaleAdmin/User",
+        "http://localhost:5000/api/user",
         formData,
       );
 

@@ -12,22 +12,12 @@ const surroundingAreaStyle = {
     color: "black",
   },
 
-  fadeIn: {
-    animationName: "fadeIn",
-    animationDuration: "1s",
-    animationFillMode: "forwards",
-  },
-
   topDiv: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
     height: "80%",
-  },
-
-  botDiv: {
-    height: "20%",
   },
 
   halfTopDiv: {
@@ -40,11 +30,6 @@ const surroundingAreaStyle = {
     width: "100%",
     flex: "1",
     textAlign: "center",
-  },
-
-  homePictures: {
-    width: "80%",
-    borderRadius: "30px",
   },
 
   description: {
@@ -75,7 +60,7 @@ const surroundingAreaStyle = {
   },
 
   dataArrayItem: {
-    height: "50px",
+    height: "5vh",
     width: "170px",
     textAlign: "center",
     fontWeight: "600",
@@ -88,6 +73,7 @@ const surroundingAreaStyle = {
     justifyContent: "center",
     alignItems: "center",
     boxShadow: "0px 2px 1px -1px grey",
+    fontSize: "0.9rem"
   },
 
   dataArrayItemHover: {
@@ -133,10 +119,6 @@ const surroundingAreaStyle = {
     height: "auto",
     marginTop: "5vh",
   },
-  homePicturesSmallScreen: {
-    width: "90%",
-    borderRadius: "20px",
-  },
   picturesBodySmallScreen: {
     width: "100%",
     marginRight: "5%",
@@ -146,7 +128,7 @@ const surroundingAreaStyle = {
   descriptionSmallScreen: {
     flex: "1",
     margin: "auto",
-    fontSize: "12px",
+    fontSize: "1rem",
     fontWeight: "550",
     textAlign: "justify",
     textJustify: "inter-word",

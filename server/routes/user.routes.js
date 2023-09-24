@@ -1,44 +1,48 @@
 const express = require('express');
-const User = require('../models/user.model');
+const user = require('../models/user.model');
 
 const router = express.Router();
 
-router.post('/users', async (req, res) => {
+router.post('/user', async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { name, email, pwd } = req.body;
 
-    const newUser = new User({
-      username,
+
+    const newUser = new user({
+      name,
+      pwd,
       email,
-      password,
     });
 
-    await newUser.save();
+    // Enregistrez l'instance dans la base de données en utilisant la méthode save()
+    const savedUser = await newUser.save();
 
-    res.json({ message: 'Compte utilisateur créé avec succès' });
+    res.json({ message: 'Compte utilisateur créé avec succès', user: savedUser });
   } catch (error) {
     console.error('Erreur lors de la création du compte :', error);
     res.status(500).json({ message: 'Erreur lors de la création du compte' });
   }
 });
 
-
-router.put('/users/:id', async (req, res) => {
+router.put('/user/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { username, email, password } = req.body;
+    const { name, email, pwd } = req.body;
 
-    const user = await User.findByIdAndUpdate(id, {
-      username,
+    const userToUpdate = await user.findByIdAndUpdate(id, {
+      name,
+      pwd,
       email,
-      password,
     });
 
-    if (!user) {
+    if (!userToUpdate) {
       return res.status(404).json({ message: 'Utilisateur non trouvé' });
     }
 
-    res.json({ message: 'Compte utilisateur modifié avec succès' });
+    // Enregistrez les modifications de l'utilisateur dans la base de données en utilisant la méthode save()
+    const updatedUser = await userToUpdate.save();
+
+    res.json({ message: 'Compte utilisateur modifié avec succès', user: updatedUser });
   } catch (error) {
     console.error('Erreur lors de la modification du compte :', error);
     res.status(500).json({ message: 'Erreur lors de la modification du compte' });
