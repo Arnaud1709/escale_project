@@ -89,16 +89,16 @@ const Reservation = () => {
 
   const itemArrays = [
     [
-      { name: t("noAnimal") },
       { name: t("maxPersons") },
       { name: t("bathroomLinen") },
       { name: t("bedroomLinen") },
       { name: t("babyBed") },
-      { name: t("twoBed") },
+      { name: t("oneBed") },
+      { name: t("oneSofa") },
     ],
     [
       { name: t("fridge") },
-      { name: t("cofeeMachine") },
+      { name: t("coffeeMachine") },
       { name: t("kettle") },
       { name: t("microwave") },
       { name: t("wifi") },
@@ -206,18 +206,6 @@ const Reservation = () => {
                     />
                   </Grid>
                 </Grid>
-                <div style={userCondtion}>
-                  <div style={userConditionDiv}>
-                    <p>{t("account")}</p>
-                    <p>{t("noAnimal")}</p>
-                    <p>{t("cancelReservation")}</p>
-                  </div>
-                  <div style={userConditionDiv}>
-                    <p>{t("arrived")}</p>
-                    <p>{t("departure")}</p>
-                    <p>{t("breakfast")}</p>
-                  </div>
-                </div>
               </div>
             </div>
             <div style={halfTopStyle}>
@@ -226,7 +214,7 @@ const Reservation = () => {
                 <Calendar onDateRangeChange={handleDateRangeChange} />
               </div>
               <div style={reservationPrice}>
-                <p>{t("numberPerson")}</p>
+                <p>{t("numberOfPeople")}</p>
                 <Select
                   value={selectedNumberOfPersons}
                   onChange={handleNumberOfPersonsChange}
@@ -267,12 +255,24 @@ const Reservation = () => {
                       control={<Radio />}
                       label={t("onPlace")}
                     /> */}
-                    <p>{t("onlyOnPlace")}</p>
+                    <p>{t("onlyOnSite")}</p>
                   </RadioGroup>
                 </FormControl>
               </div>
-            </div>
+            </div>        
           </div>
+            <div style={userCondtion}>
+                  <div style={userConditionDiv}>
+                    <p>{t("deposit")}</p>
+                    <p>{t("noAnimal")}</p>
+                    <p>{t("cancelReservation")}</p>
+                  </div>
+                  <div style={userConditionDiv}>
+                    <p>{t("arrived")}</p>
+                    <p>{t("departure")}</p>
+                    <p>{t("breakfast")}</p>
+                  </div>
+                </div>
           <Button
             type="submit"
             fullWidth

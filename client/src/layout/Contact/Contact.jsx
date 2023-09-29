@@ -48,7 +48,7 @@ const Contact = () => {
     <Card style={cardStyle}>
       <CardContent>
         <Typography style={titleForm}>
-          <h1>{t("contactUs")}</h1>
+          <h2>{t("contactUs")}</h2>
         </Typography>
         <Grid container>
           <Grid xs={12} sm={6} item style={firstNameStyle}>

@@ -45,6 +45,7 @@ const airstripDataStyles = {
   homePictures: {
     width: "80%",
     borderRadius: "30px",
+    color: "blue",
   },
 
   description: {
@@ -135,6 +136,7 @@ const airstripDataStyles = {
   homePicturesSmallScreen: {
     width: "90%",
     borderRadius: "20px",
+    color: "blue",
   },
   picturesBodySmallScreen: {
     width: "100%",

@@ -1,52 +1,28 @@
-const express = require('express');
-const user = require('../models/user.model');
+const { authJwt } = require("../middlewares");
+const controller = require("../controllers/user.controller");
 
-const router = express.Router();
+module.exports = function(app) {
+  app.use(function(req, res, next) {
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, Content-Type, Accept"
+    );
+    next();
+  });
 
-router.post('/user', async (req, res) => {
-  try {
-    const { name, email, pwd } = req.body;
+  app.get("/api/test/all", controller.allAccess);
 
+  app.get("/api/test/user", [authJwt.verifyToken], controller.userBoard);
 
-    const newUser = new user({
-      name,
-      pwd,
-      email,
-    });
+  app.get(
+    "/api/test/mod",
+    [authJwt.verifyToken, authJwt.isModerator],
+    controller.moderatorBoard
+  );
 
-    // Enregistrez l'instance dans la base de données en utilisant la méthode save()
-    const savedUser = await newUser.save();
-
-    res.json({ message: 'Compte utilisateur créé avec succès', user: savedUser });
-  } catch (error) {
-    console.error('Erreur lors de la création du compte :', error);
-    res.status(500).json({ message: 'Erreur lors de la création du compte' });
-  }
-});
-
-router.put('/user/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { name, email, pwd } = req.body;
-
-    const userToUpdate = await user.findByIdAndUpdate(id, {
-      name,
-      pwd,
-      email,
-    });
-
-    if (!userToUpdate) {
-      return res.status(404).json({ message: 'Utilisateur non trouvé' });
-    }
-
-    // Enregistrez les modifications de l'utilisateur dans la base de données en utilisant la méthode save()
-    const updatedUser = await userToUpdate.save();
-
-    res.json({ message: 'Compte utilisateur modifié avec succès', user: updatedUser });
-  } catch (error) {
-    console.error('Erreur lors de la modification du compte :', error);
-    res.status(500).json({ message: 'Erreur lors de la modification du compte' });
-  }
-});
-
-module.exports = router;
+  app.get(
+    "/api/test/admin",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.adminBoard
+  );
+};

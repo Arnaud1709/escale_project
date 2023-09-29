@@ -1,152 +1,111 @@
-import { Google } from '@mui/icons-material';
+import React, { useState } from "react";
 import {
+  TextField,
   Button,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-} from '@mui/material';
-import { useEffect, useState } from 'react';
-import { useRef } from 'react';
-import { useAuth } from '../../context/AuthContext';
-import EmailField from './inputs/EmailField';
-import PasswordField from './inputs/PasswordField';
-import SubmitButton from './inputs/SubmitButton';
-import ResetPassword from './ResetPassword';
+  Card,
+  CardContent,
+  Typography,
+  Alert,
+} from "@mui/material";
+import AuthService from "../../../services/auth.service";
+
+const required = (value) => {
+  if (!value) {
+    return (
+      <div className="invalid-feedback d-block">
+        This field is required!
+      </div>
+    );
+  }
+};
 
 const Login = () => {
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const confirmPasswordRef = useRef();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [successful, setSuccessful] = useState(false);
 
-  const [isRegister, setIsRegister] = useState(false);
-  const {
-    modal,
-    setModal,
-    signUp,
-    login,
-    loginWithGoogle,
-    setAlert,
-    setLoading,
-  } = useAuth();
-
-  const handleSubmit = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
+
+    setMessage("");
+    setSuccessful(false);
     setLoading(true);
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
-    if (isRegister) {
-      const confirmPassword = confirmPasswordRef.current.value;
-      try {
-        if (password !== confirmPassword) {
-          throw new Error("Passwords don't match");
-        }
-        await signUp(email, password);
-        setModal({ ...modal, isOpen: false });
-      } catch (error) {
-        setAlert({
-          isAlert: true,
-          severity: 'error',
-          message: error.message,
-          timeout: 5000,
-          location: 'modal',
-        });
-        console.log(error);
+
+    AuthService.login(username, password).then(
+      () => {
+        setSuccessful(true);
+        setMessage("Login successful!");
+        setLoading(false);
+      },
+      (error) => {
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+
+        setMessage(resMessage);
+        setSuccessful(false);
+        setLoading(false);
       }
-    } else {
-      try {
-        await login(email, password);
-        setModal({ ...modal, isOpen: false });
-      } catch (error) {
-        setAlert({
-          isAlert: true,
-          severity: 'error',
-          message: error.message,
-          timeout: 5000,
-          location: 'modal',
-        });
-        console.log(error);
-      }
-    }
-    setLoading(false);
+    );
   };
 
-  const handleGoogleLogin = async () => {
-    try {
-      await loginWithGoogle();
-      setModal({ ...modal, isOpen: false });
-    } catch (error) {
-      setAlert({
-        isAlert: true,
-        severity: 'error',
-        message: error.message,
-        timeout: 5000,
-        location: 'modal',
-      });
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    if (isRegister) {
-      setModal({ ...modal, title: 'Register' });
-    } else {
-      setModal({ ...modal, title: 'Login' });
-    }
-  }, [isRegister]);
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <DialogContent dividers>
-          <DialogContentText>
-            Please enter your email and your password here:
-          </DialogContentText>
-          <EmailField {...{ emailRef }} />
-          <PasswordField {...{ passwordRef, autoFocus: false }} />
-          {isRegister && (
-            <PasswordField
-              {...{
-                passwordRef: confirmPasswordRef,
-                id: 'confirmPassword',
-                label: 'Confirm Password',
-                autoFocus: false,
-              }}
+    <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
+      <Card style={{ maxWidth: "400px" }}>
+        <CardContent>
+          <Typography variant="h5" gutterBottom>
+            Login
+          </Typography>
+
+          <form onSubmit={handleLogin}>
+            <TextField
+              fullWidth
+              label="Username"
+              variant="outlined"
+              margin="normal"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
             />
+            <TextField
+              fullWidth
+              label="Password"
+              variant="outlined"
+              margin="normal"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              fullWidth
+              style={{ marginTop: "20px" }}
+              disabled={loading}
+            >
+              {loading && (
+                <span className="spinner-border spinner-border-sm"></span>
+              )}
+              <span>Login</span>
+            </Button>
+          </form>
+
+          {message && (
+            <Alert severity={successful ? "success" : "error"} style={{ marginTop: "20px" }}>
+              {message}
+            </Alert>
           )}
-        </DialogContent>
-        <DialogActions sx={{ justifyContent: 'space-between', px: '19px' }}>
-          <Button
-            size="small"
-            onClick={() =>
-              setModal({
-                ...modal,
-                title: 'Reset Password',
-                content: <ResetPassword />,
-              })
-            }
-          >
-            Forgot Password?
-          </Button>
-          <SubmitButton />
-        </DialogActions>
-      </form>
-      <DialogActions sx={{ justifyContent: 'left', p: '5px 24px' }}>
-        {isRegister
-          ? 'Do you have an account? Sign in now'
-          : "Don't you have an account? Create one now"}
-        <Button onClick={() => setIsRegister(!isRegister)}>
-          {isRegister ? 'Login' : 'Register'}
-        </Button>
-      </DialogActions>
-      <DialogActions sx={{ justifyContent: 'center', py: '24px' }}>
-        <Button
-          variant="outlined"
-          startIcon={<Google />}
-          onClick={handleGoogleLogin}
-        >
-          Login with Google
-        </Button>
-      </DialogActions>
-    </>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 

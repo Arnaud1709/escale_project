@@ -7,7 +7,7 @@ const footerStyles = {
     position: "absolute",
     bottom: "0",
     width: "100%",
-    paddingTop: "1rem",  
+    marginTop: "1vh"
   },
 
   rootSmallScreen: {
