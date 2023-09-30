@@ -13,7 +13,6 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-
 import MenuIcon from "@mui/icons-material/Menu";
 import headerStyles from "./Header.style";
 import { Link } from "react-router-dom";
@@ -22,8 +21,8 @@ import frenchIcon from "../../utilities/img/translate/french_icon.png";
 import englishIcon from "../../utilities/img/translate/english_icon.png";
 
 const Header = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
   const { t, i18n } = useTranslation();
   const { flagInput, typographyMobile, root } = headerStyles;
 
@@ -49,6 +48,7 @@ const Header = () => {
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -69,7 +69,7 @@ const Header = () => {
             variant="h6"
             noWrap
             component={Link}
-            href="/"
+            to="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -78,7 +78,7 @@ const Header = () => {
               fontWeight: 700,
               letterSpacing: ".3rem",
               color: "inherit",
-              textDecoration: 'none',
+              textDecoration: "none",
             }}
           >
             {t("escale")}
@@ -129,6 +129,7 @@ const Header = () => {
               ))}
             </Menu>
           </Box>
+
           <Typography
             variant="h5"
             noWrap
@@ -139,6 +140,7 @@ const Header = () => {
           >
             {t("escale")}
           </Typography>
+
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {navigationLinks.map((item) => (
               <Button
@@ -149,7 +151,7 @@ const Header = () => {
                   color: "white",
                   display: "block",
                   fontFamily: "Quicksand, sans-serif",
-                  textDecoration: "none"
+                  textDecoration: "none",
                 }}
                 component={Link}
                 to={item.to}
@@ -160,8 +162,7 @@ const Header = () => {
           </Box>
 
           <Box
-            sx={{ flexGrow: 0 }}
-            style={{ display: "flex", flexDirection: "row" }}
+            sx={{ flexGrow: 0, display: "flex", flexDirection: "row" }}
           >
             <div style={{ display: "flex", flexDirection: "column" }}>
               <IconButton onClick={() => changeLanguage("fr")} sx={{ p: 0 }}>

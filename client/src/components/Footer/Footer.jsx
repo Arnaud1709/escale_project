@@ -1,25 +1,23 @@
-import React, { useState } from "react";
-import { useTranslation, withTranslation } from "react-i18next";
-import footerStyles from "./Footer.style";
+import React from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "@mui/material";
+import { withTranslation } from "react-i18next";
+import footerStyles from "./Footer.style";
 
 const Footer = () => {
-  const { t, i18n } = useTranslation();
-
+  const { t } = useTranslation();
   const isSmallScreen = useMediaQuery("(max-width: 900px)");
-
   const {
     root,
     rootSmallScreen,
-    footerCopyright,
+    footerSection,
     footerLinks,
     footerLinksDiv,
-    footerSection,
     linkStyle,
     titleFooter,
+    footerCopyright,
   } = footerStyles;
-
   const rootStyle = isSmallScreen ? rootSmallScreen : root;
 
   const escaleLinks = [
@@ -70,7 +68,6 @@ const Footer = () => {
               {t("availability")} <br />
             </p>
           </div>
-
           <div style={footerLinksDiv}>
             <h4 style={titleFooter}>{t("legalInfo")}</h4>
             {legacyLinks.map((item) => (

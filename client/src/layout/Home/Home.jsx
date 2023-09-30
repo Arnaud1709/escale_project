@@ -7,7 +7,7 @@ import { Container, useMediaQuery } from "@mui/material";
 const Home = () => {
   const [hoveredItemIndex1, setHoveredItemIndex1] = useState(-1);
   const [hoveredItemIndex2, setHoveredItemIndex2] = useState(-1);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const homeDescribe = t("homeDescribe");
 
   const handleMouseEnter1 = (index) => {

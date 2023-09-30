@@ -1,8 +1,7 @@
 import React, {useState} from "react";
 import { useTranslation, withTranslation } from "react-i18next";
 import picturesStyles from "./Pictures.style";
-import { ImageList, ImageListItem, ImageListItemBar, Dialog, IconButton, Container } from "@mui/material";
-import { Close as CloseIcon } from "@mui/icons-material";
+import { ImageList, ImageListItem, ImageListItemBar, Dialog, Container } from "@mui/material";
 
 import Airstrip1 from "../../utilities/img/airstrip/airstrip1.jpg";
 import Airstrip2 from "../../utilities/img/airstrip/airstrip2.JPG";
@@ -92,7 +91,7 @@ const Pictures = () => {
   return (
     <div>
       <Container style={containerStyle}>
-        <h3>Photos de la piste d'atterrissage</h3>
+        <h3>{t("airstripPhotos")}</h3>
         <ImageList cols={12} gap={8} style={imageList} loading="lazy">
           {airstripPictures.map((image, index) => (
             <ImageListItem key={index}>
@@ -107,7 +106,7 @@ const Pictures = () => {
           ))}
         </ImageList>
 
-        <h3>Photos du logement</h3>
+        <h3>{t("lodgingPhotos")}</h3>
         <ImageList cols={3} gap={8} style={imageList} loading="lazy">
           {logmentPictures.map((image, index) => (
             <ImageListItem key={index}>
@@ -122,7 +121,7 @@ const Pictures = () => {
           ))}
         </ImageList>
 
-        <h3>Photos du Hangar</h3>
+        <h3>{t("hangarPhotos")}</h3>
         <ImageList cols={3} gap={8} style={imageList} loading="lazy">
           {hangarPictures.map((image, index) => (
             <ImageListItem key={index}>

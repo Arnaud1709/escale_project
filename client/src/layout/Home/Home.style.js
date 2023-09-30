@@ -32,8 +32,10 @@ const homeStyles = {
 
   halfTopDiv: {
     width: "48%",
-    height: "100%",
+    height: "50vh",
     paddingTop: "3%",
+    display: "flex",
+    alignItems: "center"
   },
 
   picturesBody: {
@@ -50,7 +52,7 @@ const homeStyles = {
   description: {
     flex: "1",
     margin: "auto",
-    fontSize: "1rem",
+    fontSize: "1.2rem",
     textAlign: "justify",
     textJustify: "inter-word",
     fontWeight: "500",

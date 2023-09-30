@@ -8,6 +8,7 @@ const headerStyles = {
   flagInput: {
     width: "25px",
   },
+  
   typographyMobile: {
     mr: 2,
     flexGrow: 1,
@@ -16,6 +17,7 @@ const headerStyles = {
     color: "inherit",
     textDecoration: "none",
   },
+
   iconFlag: {
     paddingTop: 1,
     paddingBot: 0,

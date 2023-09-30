@@ -1,7 +1,8 @@
 const bodyStyles = {
   root: {
     color: "Black",
-    height: "80vh"
+    height: "80vh",
+    margin: "0"
   },
 
   rootSmallScreen: {
