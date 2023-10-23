@@ -4,6 +4,7 @@ const cookieSession = require("cookie-session");
 
 const dbConfig = require("./config/db.config");
 const db = require("./models");
+const reservationRoutes = require("./routes/reservation.routes");
 const Role = db.role;
 
 const app = express();
@@ -15,6 +16,8 @@ app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
+
+app.use("/api/reservations", reservationRoutes);
 
 app.use(
   cookieSession({
@@ -48,6 +51,7 @@ function startServer() {
   // routes
   require("./routes/auth.routes")(app);
   require("./routes/user.routes")(app);
+  require("./routes/reservation.routes")(app);
 
   // set port, listen for requests
   const PORT = process.env.PORT || 5000;

@@ -32,8 +32,10 @@ const airstripDataStyles = {
 
   halfTopDiv: {
     width: "48%",
-    height: "100%",
     paddingTop: "3%",
+    display: "flex",
+    alignItems: "center",
+
   },
 
   picturesBody: {
@@ -51,11 +53,8 @@ const airstripDataStyles = {
   description: {
     flex: "1",
     margin: "auto",
-    fontSize: "1.2vw",
+    fontSize: "20px",
     textAlign: "justify",
-    textJustify: "inter-word",
-    fontWeight: "500",
-    alignItems: "center",
   },
 
   dataArray: {
@@ -108,17 +107,18 @@ const airstripDataStyles = {
   dataArraySmallScreen: {
     marginTop: "20px",
     marginBottom: "10px",
-    width: "100vw",
+    width: "80vw",
     display: "flex",
-    justifyContent: "space-between",
     flexDirection: "row",
   },
 
+  linkStyle: {
+    textDecoration: "none",
+    color: "black"
+  },
+
   dataArrayLineSmallScreen: {
-    height: "20vh",
-    display: "flex",
-    justifyContent: "space-between",
-    flexDirection: "column",
+    height: "10vh",
     margin: "auto",
   },
 
@@ -140,15 +140,12 @@ const airstripDataStyles = {
   },
   picturesBodySmallScreen: {
     width: "100%",
-    marginRight: "5%",
-    marginLeft: "5%",
     flex: "1",
   },
   descriptionSmallScreen: {
     flex: "1",
     margin: "auto",
-    fontSize: "12px",
-    fontWeight: "550",
+    fontSize: "16px",
     textAlign: "justify",
     textJustify: "inter-word",
   },

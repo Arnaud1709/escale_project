@@ -7,10 +7,12 @@ import airstripDataStyles from "./AirstripData.style";
 
 const AirstripData = () => {
   const { t } = useTranslation();
+  const airstripInfo = t("airstripInfo")
   const {
     rootStyle,
     halfTopDiv,
     halfTopDivSmallScreen,
+    linkStyle,
     topDiv,
     topDivSmallScreen,
     picturesBody,
@@ -43,13 +45,15 @@ const AirstripData = () => {
         </div>
         <div style={halfTopStyle}>
           <div style={descriptionStyle}>
-            <p>{t("airstripInfo")}</p>
+          {airstripInfo.split("\n").map((line, index) => (
+              <div key={index}>{line}</div>
+            ))}
           </div>
         </div>
       </div>
       <div style={dataArrayStyle}>
         <div style={dataArrayLineStyle}>
-          {t("moreInfo")} {t("infoLink")}
+          <p>{t("moreAirstripInfo")}<a href="https://basulm.ffplum.fr/PDF/LF7033.pdf" style={linkStyle}>{t("infoLink")}</a></p> 
         </div>
       </div>
     </Container>

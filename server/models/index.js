@@ -5,6 +5,7 @@ const db = {};
 
 db.mongoose = mongoose;
 
+db.reservation = require("./reservation.model")
 db.user = require("./user.model");
 db.role = require("./role.model");
 

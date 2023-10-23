@@ -22,6 +22,10 @@ const footerStyles = {
     lineHeight: "1.5", 
   },
 
+  contactData: {
+    margin: "0"
+  },
+
   footerSection: {
     display: "flex",
     flexDirection: "column",

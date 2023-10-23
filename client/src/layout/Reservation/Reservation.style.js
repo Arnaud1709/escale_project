@@ -81,6 +81,10 @@ const ReservationStyles = {
     height: "20%",
   },
 
+  amount: {
+    marginLeft: "5px"
+  },
+
   halfTopDiv: {
     width: "48%",
     height: "100%",

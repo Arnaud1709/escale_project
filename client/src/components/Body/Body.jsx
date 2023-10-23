@@ -16,13 +16,26 @@ import Rgpd from "../Footer/Rgpd";
 import AccountCreation from "../../layout/Account/AccountCreation";
 import Login from "../../layout/Account/Login";
 
+/**
+ * Composant représentant le corps principal de l'application.
+ * @component
+ * @returns {JSX.Element} Corps de l'application.
+ */
 const Body = () => {
+  // Récupère les styles du composant Body
   const { root, rootSmallScreen } = bodyStyles;
+  
+
+  // Vérifie si l'écran est de petite taille
   const isSmallScreen = useMediaQuery("(max-width: 900px)");
+
+  // Sélectionne le style en fonction de la taille de l'écran
   const rootStyle = isSmallScreen ? rootSmallScreen : root;
 
   return (
+    // Boîte principale contenant les éléments du corps de l'application
     <Box style={rootStyle}>
+      {/* Définit les routes de l'application */}
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/contact/*" element={<Contact />} />
@@ -40,4 +53,5 @@ const Body = () => {
   );
 };
 
+// Enrichit le composant Body avec la fonction de traduction (i18n)
 export default withTranslation()(Body);

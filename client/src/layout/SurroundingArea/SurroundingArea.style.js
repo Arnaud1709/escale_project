@@ -35,7 +35,7 @@ const surroundingAreaStyle = {
   description: {
     flex: "1",
     margin: "auto",
-    fontSize: "1.2vw",
+    fontSize: "0.9vw",
     textAlign: "justify",
     textJustify: "inter-word",
     fontWeight: "500",

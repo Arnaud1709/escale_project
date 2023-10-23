@@ -22,6 +22,7 @@ import Calendar from "../../components/Calendar/Calendar";
 const Reservation = () => {
   const { t } = useTranslation();
   const {
+    amount,
     cardStyle,
     submitButton,
     submitButtonHover,
@@ -81,10 +82,43 @@ const Reservation = () => {
     }
   };
 
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [moreInfo, setMoreInfo] = useState("");
+  const [message, setMessage] = useState("");
+  const [successful, setSuccessful] = useState(false);
+
+
   const handleNumberOfPersonsChange = (event) => {
     const newNumberOfPersons = event.target.value;
     setSelectedNumberOfPersons(newNumberOfPersons);
     recalculateTotalAmount(newNumberOfPersons, dateRange);
+  };
+
+  const handleReservationSubmit = () => {
+    e.preventDefault();
+
+    const reservationData = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phoneNumber: phoneNumber,
+      moreInfo: moreInfo,
+      numberOfPersons: selectedNumberOfPersons,
+      dateRange: dateRange,
+    };
+
+    ReservationService.createReservation(reservationData)
+      .then((response) => {
+        setMessage(response.message);
+        setSuccessful(true);
+      })
+      .catch((error) => {
+        setMessage(error.message || "An error occurred while processing your reservation.");
+        setSuccessful(false);
+      });
   };
 
   const itemArrays = [
@@ -168,6 +202,7 @@ const Reservation = () => {
                       variant="outlined"
                       fullWidth
                       required
+                      onChange={(e) => setFirstName(e.target.value)}
                     />
                   </Grid>
                   <Grid xs={12} sm={6} item style={lastNameStyle}>
@@ -177,6 +212,8 @@ const Reservation = () => {
                       variant="outlined"
                       fullWidth
                       required
+                      onChange={(e) => setLastName(e.target.value)}
+
                     />
                   </Grid>
                   <Grid xs={12} item style={gridStyle}>
@@ -186,6 +223,8 @@ const Reservation = () => {
                       variant="outlined"
                       fullWidth
                       required
+                      onChange={(e) => setEmail(e.target.value)}
+
                     />
                   </Grid>
                   <Grid xs={12} item style={gridStyle}>
@@ -195,6 +234,7 @@ const Reservation = () => {
                       variant="outlined"
                       fullWidth
                       required
+                      onChange={(e) => setPhoneNumber(e.target.value)}
                     />
                   </Grid>
                   <Grid xs={12} item style={gridStyle}>
@@ -203,6 +243,7 @@ const Reservation = () => {
                       placeholder={t("enterInfo")}
                       variant="outlined"
                       fullWidth
+                      onChange={(e) => setMoreInfo(e.target.value)}
                     />
                   </Grid>
                 </Grid>
@@ -229,9 +270,9 @@ const Reservation = () => {
                 </Select>
               </div>
                 <div style={totalValue}>
-                  <p>{t("totalAmount")}</p>
+                  <p>{t("totalAmount")} </p>
                   {totalAmount > 0 && (
-                    <p>{totalAmount} €</p>
+                    <p style={amount}> {totalAmount} €</p>
                   )}
                 </div>
               <div>
@@ -280,9 +321,15 @@ const Reservation = () => {
             style={submitButtonStyle}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
+            onClick={handleReservationSubmit}
           >
             {t("paid")}
           </Button>
+          {message && (
+            <Alert severity={successful ? "success" : "error"} style={{ marginTop: "20px" }}>
+              {message}
+            </Alert>
+          )}
         </CardContent>
       </Card>
       <div style={dataArrayStyle}>

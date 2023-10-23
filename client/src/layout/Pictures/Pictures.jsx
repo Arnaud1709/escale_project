@@ -37,7 +37,6 @@ import Hangar4 from "../../utilities/img/airstrip/hangar4.JPG";
 const Pictures = () => {
   const {t, i18n} = useTranslation();
   const {photoGallery, imageList, containerStyle} = picturesStyles;
-
   const [zoomedOpen, setZoomedOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -50,7 +49,6 @@ const Pictures = () => {
     setSelectedImage(null);
     setZoomedOpen(false);
   };
-
 
   const airstripPictures = [
     {alt:t("airstrip1"), src: Airstrip1},

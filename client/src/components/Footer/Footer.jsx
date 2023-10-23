@@ -1,13 +1,18 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
-import { useMediaQuery } from "@mui/material";
-import { withTranslation } from "react-i18next";
-import footerStyles from "./Footer.style";
+import { useTranslation } from "react-i18next"; // Importe le hook useTranslation pour la traduction
+import { Link } from "react-router-dom"; // Importe le composant Link de react-router-dom pour la navigation
+import { useMediaQuery } from "@mui/material"; // Importe le hook useMediaQuery de Material-UI pour les requêtes media
+import { withTranslation } from "react-i18next"; // Importe la fonction de traduction
+import footerStyles from "./Footer.style"; // Importe les styles CSS du composant Footer
 
+/**
+ * Composant représentant le pied de page de l'application.
+ * @component
+ * @returns {JSX.Element} Le composant Footer.
+ */
 const Footer = () => {
-  const { t } = useTranslation();
-  const isSmallScreen = useMediaQuery("(max-width: 900px)");
+  const { t } = useTranslation(); // Initialise la fonction de traduction
+  const isSmallScreen = useMediaQuery("(max-width: 900px)"); // Vérifie la taille de l'écran
   const {
     root,
     rootSmallScreen,
@@ -15,11 +20,12 @@ const Footer = () => {
     footerLinks,
     footerLinksDiv,
     linkStyle,
+    contactData,
     titleFooter,
     footerCopyright,
-  } = footerStyles;
-  const rootStyle = isSmallScreen ? rootSmallScreen : root;
+  } = footerStyles; // Destructure les styles du fichier footerStyles
 
+  // Définit les liens pour les différentes sections du pied de page
   const escaleLinks = [
     { name: t("lodging"), to: "/" },
     { name: t("airstrip"), to: "/lapiste" },
@@ -41,9 +47,11 @@ const Footer = () => {
   ];
 
   return (
-    <div style={rootStyle}>
+    // Rendu du composant Footer
+    <div style={isSmallScreen ? rootSmallScreen : root}>
       <div style={footerSection}>
         <div style={footerLinks}>
+          {/* Section pour les liens liés à 'Escale' */}
           <div style={footerLinksDiv}>
             <h4 style={titleFooter}>{t("escale")}</h4>
             {escaleLinks.map((item) => (
@@ -52,6 +60,7 @@ const Footer = () => {
               </Link>
             ))}
           </div>
+          {/* Section pour les liens utilisateur */}
           <div style={footerLinksDiv}>
             <h4 style={titleFooter}>{t("user")}</h4>
             {userLinks.map((item) => (
@@ -60,14 +69,16 @@ const Footer = () => {
               </Link>
             ))}
           </div>
+          {/* Section de contact */}
           <div style={footerLinksDiv}>
             <h4 style={titleFooter}>{t("contactUs")}</h4>
-            <p>
+            <p style={contactData}>
               {t("email")} <br />
-              {t("number")} 0671102975 <br />
+              {t("number")}<br />
               {t("availability")} <br />
             </p>
           </div>
+          {/* Section pour les liens légaux */}
           <div style={footerLinksDiv}>
             <h4 style={titleFooter}>{t("legalInfo")}</h4>
             {legacyLinks.map((item) => (
@@ -75,6 +86,7 @@ const Footer = () => {
                 {item.name}
               </Link>
             ))}
+            {/* Section pour les informations de copyright */}
             <div style={footerCopyright}>
               <p>
                 @{new Date().getFullYear()} {t("escale")} . {t("allRights")}
@@ -87,4 +99,5 @@ const Footer = () => {
   );
 };
 
+// Enrichit le composant Footer avec la fonction de traduction (i18n)
 export default withTranslation()(Footer);

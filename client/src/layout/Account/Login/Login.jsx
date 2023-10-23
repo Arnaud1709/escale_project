@@ -9,16 +9,6 @@ import {
 } from "@mui/material";
 import AuthService from "../../../services/auth.service";
 
-const required = (value) => {
-  if (!value) {
-    return (
-      <div className="invalid-feedback d-block">
-        This field is required!
-      </div>
-    );
-  }
-};
-
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
